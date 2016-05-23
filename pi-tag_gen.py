@@ -15,26 +15,27 @@ import sys
 
 def main(argv):
     parser = argparse.ArgumentParser()
-    parser.add_argument("marker_size", help="Length from center of top-left circle to center of top-right circle", default=12.5, type=float)
-    parser.add_argument("circle_radius", help="Radius of each circle", default=0.9, type=float)
+    parser.add_argument("marker_size", help="Length from center of top-left circle to center of top-right circle (cm)", default=12.5, type=float)
+    parser.add_argument("circle_radius", help="Radius of each circle (cm)", default=0.9, type=float)
     parser.add_argument("AB0", help="Cross relation AB in line 0",default=0.40, type=float)
     parser.add_argument("AC0", help="Cross relation AC in line 0",default=0.60, type=float)
     parser.add_argument("AB1", help="Cross relation AB in line 1",default=0.20, type=float)
     parser.add_argument("AC1", help="Cross relation AC in line 1",default=0.80, type=float)
+    parser.add_argument("--output_file", help="Name of the output file", type=str, default="pitag_marker.svg")
     parser.add_argument("--A4", help="SVG output centered in A4 sheet size",action="store_true")
     parser.add_argument("--pdf", help="Convert final SVG file to pdf",action="store_true")
-    parser.add_argument("--print_debug", help="Print debug information inside the marker",action="store_true")
+    parser.add_argument("--show_info", help="Print additional information inside the marker",action="store_true")
     #parser.add_argument("--print_debug", help="Print debug information inside the marker",action="store_true")
 
     args = parser.parse_args()
     
     if args.A4:
         w, h = 21.0,29.7
-        dwg = svgwrite.Drawing(filename='default.svg', size=(w*cm, h*cm), debug=True)    
+        dwg = svgwrite.Drawing(filename=args.output_file, size=(w*cm, h*cm), debug=True)    
         dwg.add(dwg.rect(insert=(0,0), size=(w*cm, h*cm), fill='white', stroke='none'))
     else:
         w, h = '100%', '100%'
-        dwg = svgwrite.Drawing(filename='default.svg', size=(w, h), debug=True)    
+        dwg = svgwrite.Drawing(filename=args.output_file, size=(w, h), debug=True)    
         dwg.add(dwg.rect(insert=(0,0), size=(w, h), fill='white', stroke='none'))
     
     
@@ -132,21 +133,18 @@ def main(argv):
     t_x = cx - 5
     t_y = cy + size_outer_square/2 +1
     
-    marker.add(dwg.text('| AB | BD | CD |', insert=((t_x+2.2)*cm, t_y*cm), fill='black', textLength = 10*cm))
-    marker.add(dwg.text('| {0:.3f}cm | {1:.3f}cm | {2:.3f}cm |'.format(d_line0_AB,d_line0_BD,d_line0_CD), insert=((t_x+2.2)*cm, (t_y+0.5)*cm), fill='black'))
-    marker.add(dwg.text('| {0:.3f}cm | {1:.3f}cm | {2:.3f}cm |'.format(d_line1_AB,d_line1_BD,d_line1_CD), insert=((t_x+2.2)*cm, (t_y+1.0)*cm), fill='black'))    
-    marker.add(dwg.text('Line Top:', insert=((t_x)*cm, (t_y+0.5)*cm), fill='black'))
-    marker.add(dwg.text('Line Bottom:', insert=((t_x)*cm, (t_y+1.0)*cm), fill='black'))    
-    
-    marker.add(dwg.text('Marker Size {0}'.format(marker_size), insert=((t_x)*cm, (t_y+2)*cm), fill='black'))
-    marker.add(dwg.text('Crossratio 0: AB = {0:2.2f},  AC= {1:.2f}, CR= {2:.4f}'.format(CR_Line0_AB,CR_Line0_AC, cross_ration_0,4), insert=((t_x)*cm, (t_y+2+0.5)*cm), fill='black'))
-    marker.add(dwg.text('Crossratio 1: AB = {0:2.2f},  AC= {1:.2f}, CR= {2:.4f}'.format(CR_Line1_AB,CR_Line1_AC, cross_ration_1,4), insert=((t_x)*cm, (t_y+2+1)*cm), fill='black'))
-    
-    
-    
-    
-    
-    
+    if args.show_info:
+        marker.add(dwg.text('| AB | BD | CD |', insert=((t_x+2.2)*cm, t_y*cm), fill='black', textLength = 10*cm))
+        marker.add(dwg.text('| {0:.3f}cm | {1:.3f}cm | {2:.3f}cm |'.format(d_line0_AB,d_line0_BD,d_line0_CD), insert=((t_x+2.2)*cm, (t_y+0.5)*cm), fill='black'))
+        marker.add(dwg.text('| {0:.3f}cm | {1:.3f}cm | {2:.3f}cm |'.format(d_line1_AB,d_line1_BD,d_line1_CD), insert=((t_x+2.2)*cm, (t_y+1.0)*cm), fill='black'))    
+        marker.add(dwg.text('Line Top:', insert=((t_x)*cm, (t_y+0.5)*cm), fill='black'))
+        marker.add(dwg.text('Line Bottom:', insert=((t_x)*cm, (t_y+1.0)*cm), fill='black'))    
+        
+        marker.add(dwg.text('Marker Size {0}'.format(marker_size), insert=((t_x)*cm, (t_y+2)*cm), fill='black'))
+        marker.add(dwg.text('Crossratio 0: AB = {0:2.2f},  AC= {1:.2f}, CR= {2:.4f}'.format(CR_Line0_AB,CR_Line0_AC, cross_ration_0,4), insert=((t_x)*cm, (t_y+2+0.5)*cm), fill='black'))
+        marker.add(dwg.text('Crossratio 1: AB = {0:2.2f},  AC= {1:.2f}, CR= {2:.4f}'.format(CR_Line1_AB,CR_Line1_AC, cross_ration_1,4), insert=((t_x)*cm, (t_y+2+1)*cm), fill='black'))
+        
+        
     
     
     d_line0_AB = marker_size * args.AB0 #AB
