@@ -1,11 +1,13 @@
 # PiTag-generator
 Pi-Tag fiducial marker generator.
 
+![Reference PiTag Marker](/examples/reference_marker.png?raw=true "Reference PiTag Marker")
+
 ## Script execution
 
     python pi-tag_gen.py 10 0.9 0.40 0.60 0.30 0.70
 
-This command will generate a generic marker of 10cm wide with circles of 0.9 Radius in a file named pitag_marker.svg in the same folder of the script.
+This command will generate a generic marker of 10cm wide with circles of 0.9cm Radius in a file named pitag_marker.svg in the same folder of the script.
 
 Example with all the implemented options:
 
@@ -22,19 +24,19 @@ Example with all the implemented options:
  Radius of the circle in centimeters.
 3. **AB0**
 
- Cross relation AB in line 0
+ Cross relation AB in top (line 0)
 
 4. **AC0**
 
- Cross relation AC in line 0
+ Cross relation AC in top (line 0)
 
 5. **AB1**
 
- Cross relation AB in line 1
+ Cross relation AB in bottom (line 1)
 
 6. **AC1**
 
- Cross relation AC in line 1
+ Cross relation AC in bottom (line 1)
 
 ### Optional arguments
 
