@@ -15,16 +15,14 @@ The script is based on svgwrite and python. The following installation instructi
 
 Install dependencies on a new terminal:
 
+    sudo apt-get install python-pip python-argparse python-cairosvg
     sudo pip install svgwrite
-    sudo apt-get install python-argparse
-    sudo apt-get install python-cairosvg
-
 
 #### Then clone this repository
 
     git clone https://github.com/raultron/PiTag-generator.git
 
-#### Inside the newly created folder execute:
+#### Inside the PiTag-generator folder execute:
 
     python pi-tag_gen.py 0.40 0.60 0.30 0.70
 
@@ -75,7 +73,7 @@ Example with all the implemented options:
 
 6. **--pdf**
 
- TODO, not yet implemented. The script will generate a PDF from the SVG file. Defaults to False (only SVG).
+ The script will generate a PDF from the SVG file. Defaults to False (only SVG).
 
 7. **--show_info**
 
