@@ -65,12 +65,12 @@ def main(argv):
     d_line1_CD = marker_size - marker_size * args.AC1 #;//CD
     cross_ration_1 = (d_line1_AB/d_line1_BD)/(d_line1_AC/d_line1_CD)
     
-    print "cross_ration 0:  {0}".format(cross_ration_0)    
-    print "cross_ration 1:  {0}".format(cross_ration_1)    
-    print "delta:{0}".format(cross_ration_0 / cross_ration_1)    
+    print("cross_ration 0:  {0}".format(cross_ration_0))    
+    print("cross_ration 1:  {0}".format(cross_ration_1))   
+    print("delta:{0}".format(cross_ration_0 / cross_ration_1))    
     
     if cross_ration_0 < cross_ration_1:
-        print "Error, Crossratio 0 must be greater that Crossratio 1"
+        print("Error, Crossratio 0 must be greater that Crossratio 1")
         sys.exit()
     
     CR_Line0_AB = args.AB0
